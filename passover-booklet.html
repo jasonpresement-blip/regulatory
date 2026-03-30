@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Story of Passover</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-pale: #F5E6C0;
+    --deep: #1A0F05;
+    --ink: #2C1A0E;
+    --parchment: #F7EDD8;
+    --parchment-dark: #EDD9AD;
+    --sand: #D4B483;
+    --red: #8B2020;
+    --blue-night: #0D1B2E;
+    --blue-deep: #162340;
+    --water: #2B5278;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: #c8b08a;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* ── BOOKLET CONTAINER ── */
+  .booklet {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ── PAGE BASE ── */
+  .page {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    background: var(--parchment-dark);
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    position: relative;
+    border-bottom: 3px solid rgba(201,168,76,0.35);
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 85%, rgba(139,32,32,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 10% 10%, rgba(139,90,43,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 90%, rgba(139,90,43,0.1) 0%, transparent 60%);
+  }
+
+  .cover-stars {
+    display: none;
+  }
+
+  .cover-ornament {
+    font-size: 3.5rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px rgba(201,168,76,0.4));
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 6px rgba(201,168,76,0.3)); }
+    to   { filter: drop-shadow(0 0 16px rgba(201,168,76,0.6)); }
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--sand);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    position: relative; z-index: 1;
+  }
+
+  .cover-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.15;
+    letter-spacing: 0.05em;
+    position: relative; z-index: 1;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  .cover-rule {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+    position: relative; z-index: 1;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(44,26,14,0.6);
+    text-align: center;
+    position: relative; z-index: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .cover-bottom {
+    display: none;
+  }
+
+  /* ── SCENE ILLUSTRATION BLOCKS ── */
+  .scene {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* Egypt / Slavery scene */
+  .scene-egypt {
+    background: linear-gradient(180deg, #3d2200 0%, #6b3d10 40%, #c47a35 100%);
+  }
+
+  .scene-egypt::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,200,80,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 30% 60% at 20% 80%, rgba(200,120,0,0.1) 0%, transparent 70%);
+  }
+
+  /* Desert / Burning Bush */
+  .scene-desert {
+    background: linear-gradient(180deg, #2d1500 0%, #6b3300 40%, #c47a35 80%, #e8a850 100%);
+  }
+
+  /* Plagues scene */
+  .scene-plagues {
+    background: linear-gradient(180deg, #1a0a0a 0%, #3d1010 40%, #6b2020 80%, #8B3030 100%);
+  }
+
+  /* Exodus scene */
+  .scene-exodus {
+    background: linear-gradient(180deg, #2d1a05 0%, #6b3d10 40%, #c47a35 85%, #e8a84c 100%);
+  }
+
+  /* Red Sea */
+  .scene-sea {
+    background: linear-gradient(180deg, #0d1520 0%, #1a3040 30%, #2b5070 70%, #3d6b8B 100%);
+  }
+
+  /* Freedom */
+  .scene-freedom {
+    background: linear-gradient(180deg, #2d2200 0%, #5a4410 30%, #8B7020 60%, #c4a835 100%);
+  }
+
+  /* SVG scene elements */
+  .scene svg {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* ── PARCHMENT PAGES ── */
+  .parchment-page {
+    background: var(--parchment);
+    padding: 2.5rem 2.8rem;
+    position: relative;
+  }
+
+  .parchment-page::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 10% 0%, rgba(139,90,43,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(139,90,43,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .parchment-page::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold), var(--sand), var(--gold));
+    opacity: 0.5;
+  }
+
+  .chapter-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .chapter-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .chapter-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 1.2rem;
+    opacity: 0.6;
+  }
+
+  .body-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  .body-text p + p {
+    margin-top: 0.9rem;
+  }
+
+  .drop-cap::first-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 3.8rem;
+    font-weight: 600;
+    float: left;
+    line-height: 0.75;
+    margin-right: 0.08em;
+    margin-top: 0.1em;
+    color: var(--red);
+  }
+
+  em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    background: var(--parchment-dark);
+    border-left: 3px solid var(--gold);
+    margin: 1.2rem 0;
+    padding: 1rem 1.4rem;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--ink);
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: var(--gold);
+    opacity: 0.4;
+    position: absolute;
+    top: -0.3rem;
+    left: 0.5rem;
+    line-height: 1;
+  }
+
+  /* ── PLAGUE LIST ── */
+  .plague-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1.5rem;
+    margin: 1rem 0;
+    padding-left: 0.5rem;
+  }
+
+  .plague-item {
+    font-size: 0.92rem;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .plague-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--red);
+    font-weight: 600;
+    min-width: 1.2em;
+  }
+
+  /* ── DARK PAGES (now parchment) ── */
+  .dark-page {
+    background: var(--parchment);
+    padding: 2.5rem 2.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dark-page::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 90% 0%, rgba(139,90,43,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 10% 100%, rgba(139,90,43,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .dark-page::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold), var(--sand), var(--gold));
+    opacity: 0.5;
+  }
+
+  .dark-page .chapter-title { color: var(--ink); }
+  .dark-page .chapter-num { color: var(--gold); }
+  .dark-page .body-text { color: var(--ink); }
+  .dark-page .pull-quote {
+    background: var(--parchment-dark);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+  .dark-page em { color: var(--red); }
+  .dark-page .chapter-rule { background: var(--gold); opacity: 0.6; }
+
+  /* ── CLOSING PAGE ── */
+  .closing-page {
+    background: var(--parchment);
+    padding: 2.5rem 2.8rem;
+    position: relative;
+  }
+
+  .closing-page::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold), var(--sand), var(--gold));
+    opacity: 0.5;
+  }
+
+  .seder-box {
+    background: var(--parchment-dark);
+    border: 1px solid rgba(201,168,76,0.45);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 1.8rem;
+    margin-top: 1.5rem;
+    position: relative;
+  }
+
+  .seder-box-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .seder-box-text {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  .seder-box .seder-items {
+    margin-top: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+  }
+
+  .seder-item {
+    font-size: 0.88rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .seder-item::before {
+    content: '◆';
+    color: var(--gold);
+    font-size: 0.5rem;
+  }
+
+  /* ── PAGE NUMBERS ── */
+  .page-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--sand);
+    opacity: 0.6;
+    text-align: center;
+    padding: 0.5rem 0 0;
+  }
+
+  /* ── BACK COVER ── */
+  .back-cover {
+    background: var(--parchment-dark);
+    padding: 3rem 2.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-top: 3px solid rgba(201,168,76,0.4);
+  }
+
+  .back-cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(139,90,43,0.06) 0%, transparent 70%);
+  }
+
+  .back-cover-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 420px;
+    position: relative; z-index: 1;
+    opacity: 0.85;
+  }
+
+  .back-cover-attr {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-top: 1rem;
+    opacity: 0.8;
+    position: relative; z-index: 1;
+  }
+
+  /* ── PAGE TURN ANIMATION ── */
+  .page {
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .page:nth-child(2)  { animation-delay: 0.05s; }
+  .page:nth-child(3)  { animation-delay: 0.1s; }
+  .page:nth-child(4)  { animation-delay: 0.15s; }
+  .page:nth-child(5)  { animation-delay: 0.2s; }
+  .page:nth-child(6)  { animation-delay: 0.25s; }
+  .page:nth-child(7)  { animation-delay: 0.3s; }
+  .page:nth-child(8)  { animation-delay: 0.35s; }
+  .page:nth-child(9)  { animation-delay: 0.4s; }
+  .page:nth-child(10) { animation-delay: 0.45s; }
+  .page:nth-child(11) { animation-delay: 0.5s; }
+  .page:nth-child(12) { animation-delay: 0.55s; }
+  .page:nth-child(13) { animation-delay: 0.6s; }
+
+  @media (max-width: 500px) {
+    .parchment-page, .dark-page, .closing-page { padding: 1.8rem 1.6rem; }
+    .cover { padding: 2.5rem 1.5rem; }
+    .plague-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="booklet">
+
+  <!-- ══ COVER ══ -->
+  <div class="page cover">
+    <div class="cover-stars"></div>
+    <div class="cover-ornament">✡</div>
+    <div class="cover-eyebrow">The Ancient Story of</div>
+    <div class="cover-title">Jason's Story of Passover</div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">From Slavery to Freedom</div>
+    <div class="cover-bottom"></div>
+  </div>
+
+  <!-- ══ SCENE 1: Egypt ══ -->
+  <div class="page">
+    <div class="scene scene-egypt">
+      <svg viewBox="0 0 680 200" preserveAspectRatio="xMidYMax meet">
+        <!-- Sky gradient -->
+        <defs>
+          <radialGradient id="moonGlow" cx="75%" cy="20%" r="15%">
+            <stop offset="0%" stop-color="#FFF3A0" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#FFF3A0" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="pyramidGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#8B6535"/>
+            <stop offset="100%" stop-color="#5a3e20"/>
+          </linearGradient>
+          <linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c47a35"/>
+            <stop offset="100%" stop-color="#8B5A2B"/>
+          </linearGradient>
+        </defs>
+        <!-- Moon glow -->
+        <ellipse cx="510" cy="38" rx="60" ry="60" fill="url(#moonGlow)"/>
+        <!-- Moon -->
+        <circle cx="510" cy="38" r="14" fill="#FFF3A0" opacity="0.9"/>
+        <!-- Stars -->
+        <circle cx="80" cy="25" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="150" cy="15" r="1" fill="white" opacity="0.5"/>
+        <circle cx="230" cy="30" r="1.5" fill="white" opacity="0.4"/>
+        <circle cx="320" cy="18" r="1" fill="white" opacity="0.6"/>
+        <circle cx="420" cy="10" r="1.5" fill="white" opacity="0.5"/>
+        <circle cx="600" cy="22" r="1" fill="white" opacity="0.6"/>
+        <circle cx="650" cy="45" r="1.5" fill="white" opacity="0.4"/>
+        <!-- Pyramids -->
+        <polygon points="80,160 200,60 320,160" fill="url(#pyramidGrad)"/>
+        <polygon points="250,160 350,90 450,160" fill="#6b4820"/>
+        <polygon points="380,160 460,105 540,160" fill="#5a3e20"/>
+        <!-- Pyramid shading -->
+        <polygon points="200,60 320,160 80,160" fill="rgba(0,0,0,0.2)"/>
+        <!-- Sand ground -->
+        <rect x="0" y="155" width="680" height="45" fill="url(#sandGrad)"/>
+        <!-- Tiny silhouettes of people -->
+        <rect x="160" y="148" width="3" height="12" rx="1" fill="#2C1A0E" opacity="0.7"/>
+        <rect x="172" y="144" width="3" height="16" rx="1" fill="#2C1A0E" opacity="0.7"/>
+        <rect x="185" y="148" width="3" height="12" rx="1" fill="#2C1A0E" opacity="0.7"/>
+        <!-- Torch glow -->
+        <ellipse cx="50" cy="130" rx="12" ry="20" fill="rgba(255,120,0,0.25)"/>
+        <rect x="48" y="130" width="4" height="20" rx="1" fill="#5a3e20"/>
+        <ellipse cx="50" cy="128" rx="5" ry="7" fill="#FF8C00" opacity="0.9"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 1: Slavery ══ -->
+  <div class="page parchment-page">
+    <span class="chapter-num">Chapter I</span>
+    <h2 class="chapter-title">A People in Chains</h2>
+    <div class="chapter-rule"></div>
+    <div class="body-text drop-cap">
+      <p>Over 3,000 years ago, the Jewish people were slaves in Egypt under <strong>Pharaoh Ramesses II</strong> — building cities, hauling stone, no rest, no rights. Fearing the growing Hebrew population, Ramesses ordered every newborn Hebrew boy killed.</p>
+      <p>One mother refused. She wove a papyrus basket, waterproofed it, placed her baby inside, and set him adrift on the Nile. Pharaoh's own daughter found him while bathing in the river, took him in, and raised him as her own. She named him <strong>Moses</strong> — meaning <em>"drawn from the water."</em></p>
+    </div>
+    <div class="page-num">— 1 —</div>
+  </div>
+
+  <!-- ══ SCENE 2: Desert ══ -->
+  <div class="page">
+    <div class="scene scene-desert">
+      <svg viewBox="0 0 680 200" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <radialGradient id="fireGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FF6600" stop-opacity="0.9"/>
+            <stop offset="50%" stop-color="#FF3300" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#FF0000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="bushGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFA500" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#FF4500" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Stars -->
+        <circle cx="100" cy="20" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="200" cy="10" r="1" fill="white" opacity="0.5"/>
+        <circle cx="350" cy="25" r="1.5" fill="white" opacity="0.4"/>
+        <circle cx="550" cy="15" r="1" fill="white" opacity="0.7"/>
+        <circle cx="620" cy="30" r="1.5" fill="white" opacity="0.5"/>
+        <!-- Desert dunes -->
+        <ellipse cx="100" cy="190" rx="200" ry="50" fill="#6b3300"/>
+        <ellipse cx="500" cy="185" rx="250" ry="45" fill="#5a2a00"/>
+        <!-- Ground -->
+        <rect x="0" y="165" width="680" height="35" fill="#8B4513"/>
+        <!-- Burning Bush - glow -->
+        <ellipse cx="400" cy="100" rx="55" ry="55" fill="url(#bushGlow)" opacity="0.6"/>
+        <!-- Bush branches -->
+        <line x1="400" y1="165" x2="385" y2="120" stroke="#5a3e20" stroke-width="3"/>
+        <line x1="400" y1="165" x2="400" y2="115" stroke="#5a3e20" stroke-width="3"/>
+        <line x1="400" y1="165" x2="415" y2="120" stroke="#5a3e20" stroke-width="3"/>
+        <line x1="385" y1="120" x2="370" y2="95" stroke="#5a3e20" stroke-width="2"/>
+        <line x1="385" y1="120" x2="390" y2="100" stroke="#5a3e20" stroke-width="2"/>
+        <line x1="415" y1="120" x2="430" y2="95" stroke="#5a3e20" stroke-width="2"/>
+        <line x1="400" y1="115" x2="395" y2="90" stroke="#5a3e20" stroke-width="2"/>
+        <!-- Flames -->
+        <ellipse cx="385" cy="110" rx="12" ry="18" fill="#FF6600" opacity="0.9"/>
+        <ellipse cx="400" cy="100" rx="14" ry="20" fill="#FF8C00" opacity="0.9"/>
+        <ellipse cx="415" cy="110" rx="10" ry="16" fill="#FF6600" opacity="0.9"/>
+        <ellipse cx="392" cy="95" rx="8" ry="12" fill="#FFD700" opacity="0.8"/>
+        <ellipse cx="408" cy="92" rx="7" ry="11" fill="#FFD700" opacity="0.8"/>
+        <!-- Moses figure -->
+        <ellipse cx="330" cy="160" rx="8" ry="4" fill="rgba(0,0,0,0.4)"/>
+        <rect x="327" y="130" width="6" height="30" rx="2" fill="#3d2200"/>
+        <circle cx="330" cy="126" r="7" fill="#8B6545"/>
+        <!-- Staff -->
+        <line x1="338" y1="165" x2="348" y2="125" stroke="#5a3e20" stroke-width="2.5"/>
+        <!-- Light ray from bush toward Moses -->
+        <line x1="370" y1="120" x2="338" y2="130" stroke="#FFD700" stroke-width="1" opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 2: The Calling ══ -->
+  <div class="page parchment-page">
+    <span class="chapter-num">Chapter II</span>
+    <h2 class="chapter-title">A Voice in the Fire</h2>
+    <div class="chapter-rule"></div>
+    <div class="body-text drop-cap">
+      <p>Moses grew up in the palace alongside Egyptian royalty. But when he discovered his true identity and witnessed the brutality his people endured, something broke in him. He killed an Egyptian overseer who was beating a Hebrew slave, then fled into the desert.</p>
+      <p>There, at a burning bush that somehow wouldn't burn out, God gave him his mission: go back to Egypt, stand in front of the most powerful man in the world, and tell him to let the Hebrews go. Moses, understandably nervous, asked his brother <strong>Aaron</strong> to come with him.</p>
+    </div>
+    <div class="pull-quote">
+      Let my people go.
+    </div>
+    <div class="page-num">— 2 —</div>
+  </div>
+
+  <!-- ══ SCENE 3: Plagues ══ -->
+  <div class="page">
+    <div class="scene scene-plagues">
+      <svg viewBox="0 0 680 200" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <radialGradient id="redGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#8B0000" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#8B0000" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Dark stormy sky with lightning -->
+        <ellipse cx="200" cy="100" rx="180" ry="100" fill="url(#redGlow)"/>
+        <!-- Lightning bolts -->
+        <polyline points="180,20 165,70 178,70 155,120" stroke="#FFD700" stroke-width="2" fill="none" opacity="0.8"/>
+        <polyline points="350,10 338,55 348,55 330,100" stroke="#FFD700" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <!-- Nile river (red/blood) -->
+        <path d="M0,160 Q170,145 340,158 Q510,170 680,155 L680,200 L0,200 Z" fill="#8B1A1A"/>
+        <path d="M0,155 Q170,140 340,153 Q510,165 680,150" stroke="#CC2200" stroke-width="2" fill="none" opacity="0.7"/>
+        <!-- Frogs silhouettes -->
+        <ellipse cx="100" cy="157" rx="12" ry="7" fill="#2d4a1e" opacity="0.9"/>
+        <ellipse cx="250" cy="153" rx="10" ry="6" fill="#2d4a1e" opacity="0.8"/>
+        <ellipse cx="420" cy="155" rx="12" ry="7" fill="#2d4a1e" opacity="0.9"/>
+        <ellipse cx="560" cy="150" rx="10" ry="6" fill="#2d4a1e" opacity="0.7"/>
+        <!-- City/buildings silhouette -->
+        <rect x="450" y="100" width="40" height="55" fill="#1a0d05" opacity="0.9"/>
+        <rect x="500" y="110" width="30" height="45" fill="#1a0d05" opacity="0.9"/>
+        <rect x="540" y="90" width="50" height="65" fill="#1a0d05" opacity="0.9"/>
+        <rect x="600" y="105" width="35" height="50" fill="#1a0d05" opacity="0.9"/>
+        <rect x="640" y="95" width="40" height="60" fill="#1a0d05" opacity="0.9"/>
+        <!-- Hail/fire from sky -->
+        <circle cx="120" cy="80" r="4" fill="#FFD700" opacity="0.7"/>
+        <circle cx="200" cy="60" r="3" fill="#FFA500" opacity="0.6"/>
+        <circle cx="290" cy="75" r="5" fill="#FFD700" opacity="0.5"/>
+        <!-- Locust swarm dots -->
+        <circle cx="60" cy="40" r="2" fill="#4a3a10" opacity="0.8"/>
+        <circle cx="80" cy="30" r="1.5" fill="#4a3a10" opacity="0.7"/>
+        <circle cx="100" cy="50" r="2" fill="#4a3a10" opacity="0.6"/>
+        <circle cx="130" cy="35" r="1.5" fill="#4a3a10" opacity="0.8"/>
+        <circle cx="155" cy="55" r="2" fill="#4a3a10" opacity="0.7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 3: The Plagues (DARK) ══ -->
+  <div class="page dark-page">
+    <span class="chapter-num">Chapter III</span>
+    <h2 class="chapter-title">Ten Plagues Upon Egypt</h2>
+    <div class="chapter-rule"></div>
+    <div class="body-text">
+      <p>Pharaoh said no. Repeatedly. So God sent ten plagues — and after each one, Ramesses would almost budge, then didn't. The man was stubborn in a way that cost his country enormously.</p>
+    </div>
+    <div class="plague-grid">
+      <div class="plague-item"><span class="plague-num">I.</span> Blood in the Nile</div>
+      <div class="plague-item"><span class="plague-num">VI.</span> Boils</div>
+      <div class="plague-item"><span class="plague-num">II.</span> Frogs</div>
+      <div class="plague-item"><span class="plague-num">VII.</span> Hail &amp; Fire</div>
+      <div class="plague-item"><span class="plague-num">III.</span> Lice</div>
+      <div class="plague-item"><span class="plague-num">VIII.</span> Locusts</div>
+      <div class="plague-item"><span class="plague-num">IV.</span> Wild Beasts</div>
+      <div class="plague-item"><span class="plague-num">IX.</span> Darkness</div>
+      <div class="plague-item"><span class="plague-num">V.</span> Livestock Disease</div>
+      <div class="plague-item"><span class="plague-num">X.</span> Death of the Firstborn</div>
+    </div>
+    <div class="body-text">
+      <p>The tenth plague finally broke him. God had told Moses to instruct every Hebrew family to mark their doorposts with lamb's blood, so the angel of death would recognize the home and <em>pass over</em> it. That is exactly where the name comes from.</p>
+    </div>
+    <div class="page-num">— 3 —</div>
+  </div>
+
+  <!-- ══ SCENE 4: Exodus ══ -->
+  <div class="page">
+    <div class="scene scene-exodus">
+      <svg viewBox="0 0 680 200" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <linearGradient id="sunriseGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#c47a35"/>
+            <stop offset="50%" stop-color="#e8863a"/>
+            <stop offset="100%" stop-color="#1a0d05"/>
+          </linearGradient>
+          <radialGradient id="sunGlow2" cx="30%" cy="85%" r="40%">
+            <stop offset="0%" stop-color="#FFD700" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#FF8C00" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Rising sun -->
+        <ellipse cx="200" cy="195" rx="150" ry="150" fill="url(#sunGlow2)"/>
+        <!-- Ground -->
+        <rect x="0" y="168" width="680" height="32" fill="#8B5A2B"/>
+        <!-- Dust cloud -->
+        <ellipse cx="340" cy="165" rx="250" ry="20" fill="rgba(196,122,53,0.3)"/>
+        <!-- Crowd of people silhouettes (simplified) -->
+        <g opacity="0.85">
+          <!-- Row of people walking -->
+          <rect x="280" y="148" width="5" height="22" rx="2" fill="#2C1A0E"/>
+          <circle cx="282" cy="145" r="5" fill="#2C1A0E"/>
+          <rect x="295" y="145" width="5" height="25" rx="2" fill="#2C1A0E"/>
+          <circle cx="297" cy="142" r="5" fill="#2C1A0E"/>
+          <rect x="310" y="148" width="5" height="22" rx="2" fill="#2C1A0E"/>
+          <circle cx="312" cy="145" r="5" fill="#2C1A0E"/>
+          <rect x="325" y="144" width="5" height="26" rx="2" fill="#3d2200"/>
+          <circle cx="327" cy="141" r="5.5" fill="#3d2200"/>
+          <rect x="342" y="148" width="5" height="22" rx="2" fill="#2C1A0E"/>
+          <circle cx="344" cy="145" r="5" fill="#2C1A0E"/>
+          <rect x="357" y="146" width="5" height="24" rx="2" fill="#2C1A0E"/>
+          <circle cx="359" cy="143" r="5" fill="#2C1A0E"/>
+          <rect x="372" y="149" width="5" height="21" rx="2" fill="#2C1A0E"/>
+          <circle cx="374" cy="146" r="4.5" fill="#2C1A0E"/>
+          <rect x="387" y="145" width="5" height="25" rx="2" fill="#2C1A0E"/>
+          <circle cx="389" cy="142" r="5" fill="#2C1A0E"/>
+          <!-- Smaller figures in distance -->
+          <rect x="420" y="155" width="3" height="14" rx="1" fill="#2C1A0E" opacity="0.6"/>
+          <circle cx="421" cy="153" r="3.5" fill="#2C1A0E" opacity="0.6"/>
+          <rect x="432" y="157" width="3" height="12" rx="1" fill="#2C1A0E" opacity="0.5"/>
+          <circle cx="433" cy="155" r="3" fill="#2C1A0E" opacity="0.5"/>
+          <rect x="444" y="158" width="3" height="11" rx="1" fill="#2C1A0E" opacity="0.4"/>
+          <rect x="456" y="159" width="3" height="10" rx="1" fill="#2C1A0E" opacity="0.4"/>
+          <rect x="468" y="160" width="2" height="9" rx="1" fill="#2C1A0E" opacity="0.3"/>
+          <rect x="478" y="161" width="2" height="8" rx="1" fill="#2C1A0E" opacity="0.3"/>
+        </g>
+        <!-- Moses leading with staff -->
+        <line x1="268" y1="170" x2="258" y2="138" stroke="#5a3e20" stroke-width="3"/>
+        <rect x="252" y="138" width="6" height="28" rx="2" fill="#3d2200"/>
+        <circle cx="255" cy="134" r="7" fill="#8B6545"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 4: The Exodus ══ -->
+  <div class="page parchment-page">
+    <span class="chapter-num">Chapter IV</span>
+    <h2 class="chapter-title">The Night of Departure</h2>
+    <div class="chapter-rule"></div>
+    <div class="body-text drop-cap">
+      <p>When the plague struck and hit Ramesses' own household, he summoned Moses in the middle of the night. <em>"Go,"</em> he said. <em>"Take your people and leave."</em></p>
+      <p>They left so fast their bread dough never had time to rise. They baked it flat on their backs in the desert sun — that unleavened bread, <strong>matzah</strong>, is why Jews avoid regular bread entirely for eight days every Passover.</p>
+      <p>Ramesses, his grief cooling into rage, changed his mind and sent six hundred chariots after them.</p>
+    </div>
+    <div class="page-num">— 4 —</div>
+  </div>
+
+  <!-- ══ SCENE 5: Red Sea ══ -->
+  <div class="page">
+    <div class="scene scene-sea">
+      <svg viewBox="0 0 680 200" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <linearGradient id="waterLeft" x1="1" y1="0" x2="0" y2="0">
+            <stop offset="0%" stop-color="#1a3d5c"/>
+            <stop offset="100%" stop-color="#0d2035"/>
+          </linearGradient>
+          <linearGradient id="waterRight" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3d5c"/>
+            <stop offset="100%" stop-color="#0d2035"/>
+          </linearGradient>
+          <radialGradient id="pathGlow" cx="50%" cy="100%" r="50%">
+            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Moon/light source -->
+        <circle cx="340" cy="30" r="20" fill="#FFF8E0" opacity="0.8"/>
+        <ellipse cx="340" cy="50" rx="40" ry="40" fill="rgba(255,248,224,0.15)"/>
+        <!-- Beam of light on path -->
+        <path d="M300,30 L220,200 L460,200 L380,30 Z" fill="url(#pathGlow)"/>
+        <!-- Left wall of water -->
+        <path d="M0,80 Q80,60 160,70 Q220,78 240,200 L0,200 Z" fill="url(#waterLeft)"/>
+        <!-- Right wall of water -->
+        <path d="M680,80 Q600,60 520,70 Q460,78 440,200 L680,200 Z" fill="url(#waterRight)"/>
+        <!-- Water wall details / waves -->
+        <path d="M20,90 Q60,80 100,88 Q140,96 160,85" stroke="#2b5278" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M30,110 Q70,100 110,108 Q145,114 165,105" stroke="#2b5278" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M660,90 Q620,80 580,88 Q540,96 520,85" stroke="#2b5278" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M650,110 Q610,100 570,108 Q535,114 515,105" stroke="#2b5278" stroke-width="1" fill="none" opacity="0.5"/>
+        <!-- Dry path -->
+        <path d="M240,200 L460,200 L395,100 L285,100 Z" fill="#8B5A2B"/>
+        <!-- People on the path -->
+        <rect x="312" y="165" width="4" height="18" rx="1" fill="#2C1A0E" opacity="0.9"/>
+        <circle cx="314" cy="162" r="4" fill="#2C1A0E" opacity="0.9"/>
+        <rect x="325" y="162" width="4" height="21" rx="1" fill="#2C1A0E" opacity="0.9"/>
+        <circle cx="327" cy="159" r="4.5" fill="#2C1A0E" opacity="0.9"/>
+        <rect x="340" y="165" width="4" height="18" rx="1" fill="#2C1A0E" opacity="0.8"/>
+        <circle cx="342" cy="162" r="4" fill="#2C1A0E" opacity="0.8"/>
+        <rect x="354" y="163" width="4" height="20" rx="1" fill="#2C1A0E" opacity="0.8"/>
+        <!-- Moses at front with staff raised -->
+        <rect x="298" y="155" width="5" height="25" rx="2" fill="#3d2200"/>
+        <circle cx="300" cy="151" r="6" fill="#8B6545"/>
+        <line x1="300" y1="148" x2="282" y2="108" stroke="#5a3e20" stroke-width="2.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ PAGE 5: The Red Sea (DARK) ══ -->
+  <div class="page dark-page">
+    <span class="chapter-num">Chapter V</span>
+    <h2 class="chapter-title">The Sea Splits Open</h2>
+    <div class="chapter-rule"></div>
+    <div class="body-text drop-cap">
+      <p>The Hebrews reached the Red Sea with an army closing in behind them. Moses raised his staff, and the sea split into two great walls of water. They crossed on dry land.</p>
+      <p>When the Egyptian army charged in after them, the waters came crashing back down. That was the end of that.</p>
+    </div>
+    <div class="pull-quote">
+      Four hundred years of slavery. Over in a night.
+    </div>
+    <div class="page-num">— 5 —</div>
+  </div>
+
+  <!-- ══ SCENE 6: Freedom ══ -->
+  <div class="page">
+    <div class="scene scene-freedom">
+      <svg viewBox="0 0 680 200" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <radialGradient id="dawnGlow" cx="50%" cy="100%" r="70%">
+            <stop offset="0%" stop-color="#FFD700" stop-opacity="0.5"/>
+            <stop offset="60%" stop-color="#FF8C00" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#FF8C00" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Dawn sky -->
+        <ellipse cx="340" cy="210" rx="380" ry="200" fill="url(#dawnGlow)"/>
+        <!-- Hills/landscape -->
+        <ellipse cx="80" cy="200" rx="160" ry="70" fill="#2d2d0a"/>
+        <ellipse cx="600" cy="200" rx="180" ry="60" fill="#2d2d0a"/>
+        <ellipse cx="340" cy="210" rx="300" ry="55" fill="#3d3d10"/>
+        <!-- Ground -->
+        <rect x="0" y="170" width="680" height="30" fill="#5a5a15"/>
+        <!-- Dancing figure - Miriam with tambourine -->
+        <circle cx="340" cy="140" r="8" fill="#8B6545"/>
+        <rect x="336" y="148" width="8" height="22" rx="2" fill="#6b4020"/>
+        <!-- Arms raised -->
+        <line x1="336" y1="155" x2="318" y2="142" stroke="#8B6545" stroke-width="3" stroke-linecap="round"/>
+        <line x1="344" y1="155" x2="362" y2="142" stroke="#8B6545" stroke-width="3" stroke-linecap="round"/>
+        <!-- Tambourine -->
+        <circle cx="365" cy="140" r="8" fill="none" stroke="#C9A84C" stroke-width="2.5"/>
+        <circle cx="365" cy="140" r="4" fill="rgba(201,168,76,0.3)"/>
+        <!-- More dancing figures -->
+        <circle cx="295" cy="148" r="6" fill="#8B6545" opacity="0.8"/>
+        <rect x="292" y="154" width="6" height="18" rx="2" fill="#5a3020" opacity="0.8"/>
+        <line x1="292" y1="160" x2="280" y2="150" stroke="#8B6545" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
+        <circle cx="385" cy="150" r="6" fill="#8B6545" opacity="0.8"/>
+        <rect x="382" y="156" width="6" height="16" rx="2" fill="#5a3020" opacity="0.8"/>
+        <!-- Stars fading -->
+        <circle cx="100" cy="30" r="1.5" fill="white" opacity="0.3"/>
+        <circle cx="250" cy="15" r="1" fill="white" opacity="0.2"/>
+        <circle cx="500" cy="25" r="1.5" fill="white" opacity="0.3"/>
+        <circle cx="600" cy="10" r="1" fill="white" opacity="0.2"/>
+        <!-- Light rays -->
+        <line x1="340" y1="200" x2="200" y2="50" stroke="#FFD700" stroke-width="1" opacity="0.1"/>
+        <line x1="340" y1="200" x2="340" y2="30" stroke="#FFD700" stroke-width="1.5" opacity="0.12"/>
+        <line x1="340" y1="200" x2="480" y2="50" stroke="#FFD700" stroke-width="1" opacity="0.1"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ CLOSING PAGE ══ -->
+  <div class="page closing-page">
+    <span class="chapter-num">The Legacy</span>
+    <h2 class="chapter-title">A Story Retold Every Year</h2>
+    <div class="chapter-rule"></div>
+    <div class="body-text drop-cap">
+      <p>On the far shore, <strong>Miriam</strong> — Moses' sister, who had watched over him as a baby in the Nile — took up a tambourine and led the women in song and dance. After 400 years of bondage, the Jewish people were free.</p>
+      <p>Passover is celebrated each spring, usually falling in March or April. Families gather for a ritual meal called a <strong>Seder</strong>, built around a text called the <strong>Haggadah</strong> that walks through the whole story. The central idea isn't just historical — it's that every generation should experience the Exodus as if it happened to them personally.</p>
+    </div>
+    <div class="seder-box">
+      <div class="seder-box-title">At the Seder Table</div>
+      <div class="seder-box-text">Symbolic foods tell the story without words.</div>
+      <div class="seder-items">
+        <div class="seder-item">Matzah — the bread of haste</div>
+        <div class="seder-item">Bitter herbs — the taste of slavery</div>
+        <div class="seder-item">Charoset — mortar the slaves mixed</div>
+        <div class="seder-item">Lamb shank — the Passover offering</div>
+        <div class="seder-item">Parsley &amp; salt water — tears shed</div>
+        <div class="seder-item">Four cups of wine — four promises</div>
+      </div>
+    </div>
+    <div class="page-num">— 6 —</div>
+  </div>
+
+  <!-- ══ BACK COVER ══ -->
+  <div class="page back-cover">
+    <div class="back-cover-quote">
+      "In every generation, each person is obligated to see themselves as if they personally left Egypt."
+    </div>
+    <div class="back-cover-attr">— The Haggadah —</div>
+  </div>
+
+</div>
+
+</body>
+</html>
